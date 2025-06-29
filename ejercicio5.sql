@@ -24,7 +24,7 @@ CREATE TABLE Pedidos (
 cliente_id INT
 );
 /* 7. Inserta un pedido con id=1 y cliente_id=1 en la tabla "Pedidos". */
-INSERT INTO Pedidos1 (id,cliente_id)
+INSERT INTO Pedidos (id,cliente_id)
 VALUES (1,1);
 /* 8. Actualiza el cliente_id del pedido con id=1 a 2 en la tabla "Pedidos". */
 UPDATE Pedidos
@@ -79,6 +79,45 @@ SELECT
     clientes.id,
     pedidos.id
 FROM Clientes
-INNER JOIN Pedidos1 ON clientes.id = pedidos.id;
+INNER JOIN Pedidos ON clientes.id = pedidos.id;
 /* 22. Realiza una consulta para obtener todos los clientes y sus pedidos
 correspondientes utilizando un left join. */
+SELECT 
+    clientes.id,
+    pedidos.id
+FROM Clientes
+LEFT JOIN Pedidos ON clientes.id = pedidos.id;
+/* 23. Realiza una consulta para obtener todos los productos y los detalles de pedido
+correspondientes utilizando un inner join. */
+SELECT 
+    productos.id,
+    detallespedido.id
+FROM Productos
+INNER JOIN Detallespedido ON productos.id = detallespedido.id;
+/* 24. Realiza una consulta para obtener todos los productos y los detalles de pedido
+correspondientes utilizando un left join. */
+SELECT 
+    productos.id,
+    detallespedido.id
+FROM Productos
+LEFT JOIN Detallespedido ON productos.id = detallespedido.id;
+/* 25. Crea una nueva columna llamada "telefono" de tipo cadena de texto en la tabla
+"Clientes". */
+ALTER TABLE Clientes
+ADD COLUMN telefono VARCHAR(10);
+- Pongo limite 10, ya que 9 es el total de digitos de un numero telefonico
+/* 26. Modifica la columna "telefono" en la tabla "Clientes" para cambiar su tipo de datos a entero. */
+ALTER TABLE Clientes
+ALTER COLUMN telefono TYPE INT USING telefono::INT;
+/* 27. Elimina la columna "telefono" de la tabla "Clientes". */
+ALTER TABLE Clientes
+DROP COLUMN telefono;
+/* 28. Cambia el nombre de la tabla "Clientes" a "Usuarios". */
+ALTER TABLE Clientes
+RENAME TO Usuarios;
+/* 29. Cambia el nombre de la columna "nombre" en la tabla "Usuarios" a "nombre_completo". */
+ALTER TABLE Usuarios
+RENAME COLUMN nombre TO nombre_completo
+/* 30. Agrega una restricción de clave primaria a la columna "id" en la tabla "Usuarios". */
+ALTER TABLE Usuarios
+ADD CONSTRAINT usuarios_pkey PRIMARY KEY (id);
